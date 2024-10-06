@@ -6,25 +6,35 @@ async function sendMessage() {
     if (!message) return;
 
     // Afficher le message de l'utilisateur
-    appendMessage('User', message);
+    appendMessage('Vous', message);
     userInput.value = '';
 
-    // Envoyer la requête à l'API Gemini
-    const response = await fetch('https://chatbot-web-gemini.onrender.com/api/gemini', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            prompt: message,
-            customId: '12345',  // Exemple d'ID utilisateur
-        }),
-    });
+    try {
+        // Envoyer la requête à l'API Gemini
+        const response = await fetch('https://gemini-sary-prompt-espa-vercel-api.vercel.app/api/gemini', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                prompt: message,
+                customId: 'user123',  // Vous pouvez utiliser un identifiant unique par utilisateur
+            }),
+        });
 
-    const data = await response.json();
+        if (!response.ok) {
+            throw new Error(`Erreur du serveur: ${response.status}`);
+        }
 
-    // Afficher la réponse du chatbot
-    appendMessage('Bot', data.message);
+        const data = await response.json();
+
+        // Afficher la réponse du chatbot
+        appendMessage('Bot', data.message);
+
+    } catch (error) {
+        console.error('Erreur lors de la requête:', error);
+        appendMessage('Bot', 'Désolé, une erreur est survenue.');
+    }
 }
 
 function appendMessage(sender, message) {
