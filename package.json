@@ -1,15 +1,12 @@
 {
-  "name": "gemini-chatbot",
+  "name": "chat-en-ligne",
   "version": "1.0.0",
-  "description": "A web chatbot that interacts with the Gemini API to handle image and text prompts.",
-  "main": "server.js",
+  "description": "Un simple chat en ligne avec API",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node index.js"
   },
-  "author": "Your Name",
-  "license": "MIT",
   "dependencies": {
     "express": "^4.18.2"
-  },
-  "devDependencies": {}
+  }
 }
